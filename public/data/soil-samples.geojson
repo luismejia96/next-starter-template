@@ -1,0 +1,181 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-122.435, 37.765],
+            [-122.425, 37.765],
+            [-122.425, 37.775],
+            [-122.435, 37.775],
+            [-122.435, 37.765]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "zone-001",
+        "soil_type": "clay",
+        "slope_pct": 18,
+        "slope_source": "estimated",
+        "risk_score": 72,
+        "recommended_action": "Geotechnical survey required before construction; consider deep piling or retaining structures.",
+        "last_survey_date": "2024-03-15",
+        "source": "Field survey team A"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-122.415, 37.770],
+            [-122.405, 37.770],
+            [-122.405, 37.780],
+            [-122.415, 37.780],
+            [-122.415, 37.770]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "zone-002",
+        "soil_type": "loam",
+        "slope_pct": 5,
+        "slope_source": "DEM",
+        "risk_score": 28,
+        "recommended_action": "Standard foundation design acceptable; confirm bearing capacity.",
+        "last_survey_date": "2024-05-20",
+        "source": "DEM analysis v2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-122.445, 37.755],
+            [-122.430, 37.755],
+            [-122.430, 37.768],
+            [-122.445, 37.768],
+            [-122.445, 37.755]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "zone-003",
+        "soil_type": "sand",
+        "slope_pct": 8,
+        "slope_source": "estimated",
+        "risk_score": 45,
+        "recommended_action": "Monitor for erosion; consider scour protection for any water crossings.",
+        "last_survey_date": "2024-01-10",
+        "source": "Field survey team B"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-122.420, 37.755],
+            [-122.408, 37.755],
+            [-122.408, 37.763],
+            [-122.420, 37.763],
+            [-122.420, 37.755]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "zone-004",
+        "soil_type": "silt",
+        "slope_pct": 22,
+        "slope_source": "DEM",
+        "risk_score": 85,
+        "recommended_action": "High instability risk. Pylon foundations or soil stabilisation required. Do not proceed without full geotech report.",
+        "last_survey_date": "2024-07-01",
+        "source": "DEM analysis v3 + field verification"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-122.400, 37.760],
+            [-122.390, 37.760],
+            [-122.390, 37.770],
+            [-122.400, 37.770],
+            [-122.400, 37.760]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "zone-005",
+        "soil_type": "loam",
+        "slope_pct": 3,
+        "slope_source": "DEM",
+        "risk_score": 15,
+        "recommended_action": "Low risk zone. Standard shallow foundations acceptable.",
+        "last_survey_date": "2024-06-11",
+        "source": "DEM analysis v2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.428, 37.770]
+      },
+      "properties": {
+        "id": "sample-pt-001",
+        "soil_type": "clay",
+        "slope_pct": 15,
+        "slope_source": "estimated",
+        "risk_score": 62,
+        "recommended_action": "Core sample collected; awaiting lab analysis.",
+        "last_survey_date": "2024-08-05",
+        "source": "Field survey team A"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.412, 37.762]
+      },
+      "properties": {
+        "id": "sample-pt-002",
+        "soil_type": "sand",
+        "slope_pct": null,
+        "slope_source": "estimated",
+        "risk_score": 38,
+        "recommended_action": "Slope data unavailable; field measurement required.",
+        "last_survey_date": "2024-09-20",
+        "source": "Field survey team C"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.395, 37.775]
+      },
+      "properties": {
+        "id": "sample-pt-003",
+        "soil_type": "silt",
+        "slope_pct": 30,
+        "slope_source": "DEM",
+        "risk_score": 92,
+        "recommended_action": "Critical slope. Avoid construction without major earthworks or engineered pylon system.",
+        "last_survey_date": "2024-10-01",
+        "source": "DEM analysis v3"
+      }
+    }
+  ]
+}
