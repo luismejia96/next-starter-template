@@ -96,7 +96,8 @@ The map is intended for private testing before public release. The secret gate p
 npm install
 
 # 2. Create .env.local and set the secret (do NOT commit this file)
-echo "MAP_VIEW_SECRET=some-strong-random-value" >> .env.local
+#    If .env.local already exists, add MAP_VIEW_SECRET manually instead.
+echo "MAP_VIEW_SECRET=some-strong-random-value" > .env.local
 
 # 3. Start the dev server
 npm run dev

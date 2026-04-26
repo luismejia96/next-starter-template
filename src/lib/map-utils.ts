@@ -42,7 +42,9 @@ export function computeRiskScore(properties: GeoJsonProperties): number {
       ? properties.soil_type.toLowerCase()
       : "";
 
-  // Normalise slope to 0-1 (cap at 45 % for normalisation purposes)
+  // Normalise slope to 0-1. Cap at 45 % because beyond ~24° most construction
+  // is considered impractical without major earthworks; values above this cap
+  // all receive the maximum slope component rather than compressing the scale.
   const maxSlope = 45;
   const normSlope = slopePct !== null ? Math.min(slopePct, maxSlope) / maxSlope : 0;
 

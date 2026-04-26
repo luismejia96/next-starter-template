@@ -19,6 +19,21 @@ export const config = {
   matcher: ["/map", "/map/:path*"],
 };
 
+/**
+ * Constant-time string comparison to prevent timing-based secret inference.
+ */
+function timingSafeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const aBytes = enc.encode(a);
+  const bBytes = enc.encode(b);
+  const len = Math.max(aBytes.length, bBytes.length);
+  let diff = aBytes.length ^ bBytes.length;
+  for (let i = 0; i < len; i++) {
+    diff |= (aBytes[i] ?? 0) ^ (bBytes[i] ?? 0);
+  }
+  return diff === 0;
+}
+
 export function middleware(request: NextRequest): NextResponse {
   const envSecret = process.env.MAP_VIEW_SECRET;
 
@@ -39,7 +54,7 @@ export function middleware(request: NextRequest): NextResponse {
   const cookieSecret = request.cookies.get("map_secret")?.value;
   const provided = headerSecret ?? cookieSecret ?? null;
 
-  if (!provided || provided !== envSecret) {
+  if (!provided || !timingSafeEqual(provided, envSecret)) {
     const acceptHeader = request.headers.get("accept") ?? "";
     if (acceptHeader.includes("application/json")) {
       return new NextResponse(

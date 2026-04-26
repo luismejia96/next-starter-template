@@ -21,6 +21,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 
+/**
+ * Constant-time string comparison to prevent timing-based secret inference.
+ * Uses TextEncoder + XOR across all bytes regardless of early mismatch.
+ */
+function timingSafeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const aBytes = enc.encode(a);
+  const bBytes = enc.encode(b);
+  // Pad the shorter array so we always iterate the same number of bytes.
+  const len = Math.max(aBytes.length, bBytes.length);
+  let diff = aBytes.length ^ bBytes.length; // non-zero if lengths differ
+  for (let i = 0; i < len; i++) {
+    diff |= (aBytes[i] ?? 0) ^ (bBytes[i] ?? 0);
+  }
+  return diff === 0;
+}
+
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const envSecret = process.env.MAP_VIEW_SECRET;
 
@@ -45,7 +62,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const cookieSecret = request.cookies.get("map_secret")?.value;
   const provided = headerSecret ?? cookieSecret ?? null;
 
-  if (!provided || provided !== envSecret) {
+  if (!provided || !timingSafeEqual(provided, envSecret)) {
     return NextResponse.json(
       { ok: false, error: "Unauthorized. Valid X-MAP-SECRET header or map_secret cookie required." },
       { status: 401 }
