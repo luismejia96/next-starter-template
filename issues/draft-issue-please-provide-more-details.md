@@ -1,12 +1,33 @@
-**Purpose**:
-This issue documents tasks and clarifications for the "World Wide Real Estate Association LLC" project—focused on providing financial advisory and services in the United States and Europe. The goal is to ensure all relevant objectives are clearly defined and properly executed.
+**Status**: Blocked — additional details are required before implementation can begin.
 
-**Context**:
-The company serves clients in financial advisory, financial planning, and other related services across international markets. Specifically, it offers real estate investment opportunities (residential, commercial, and industrial), seller financing, foreclosure assistance, and funding for individuals/businesses to support growth and startups. These services are tailored to people interested in securing funding or managing real estate portfolios effectively.
+## What is missing
+Please update this issue with the minimum information below so it can be converted into an actionable engineering task.
 
-**Checklist**:
-- [ ] Define features or objectives for serving U.S. clients.
-- [ ] Outline the framework for addressing European markets.
-- [ ] Specify the platform/technical requirements, if applicable.
-- [ ] Detail processes for startup funding opportunities and administration.
-- [ ] Assign team members to specific tasks or roles.
+### 1) Problem summary
+- What is broken or what feature is needed?
+- Who is affected?
+
+### 2) Expected behavior
+- What should happen when this is working correctly?
+
+### 3) Current behavior
+- What happens today instead?
+- Include exact error messages, screenshots, or logs when available.
+
+### 4) Reproduction details
+- Environment (local/dev/prod, browser/device, OS)
+- Steps to reproduce
+- Relevant URL/path (e.g., `/map`)
+
+### 5) Scope and constraints
+- Files/areas that should or should not be changed
+- Deadlines, rollout constraints, or compatibility requirements
+
+### 6) Acceptance criteria
+- A clear checklist of conditions that define "done"
+
+## Ready-for-work checklist
+- [ ] Problem and expected behavior are clearly described
+- [ ] Reproduction steps are provided (or explicitly marked not reproducible)
+- [ ] Scope and constraints are listed
+- [ ] Acceptance criteria are testable
