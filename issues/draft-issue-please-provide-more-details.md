@@ -17,7 +17,7 @@ Please update this issue with the minimum information below so it can be convert
 ### 4) Reproduction details
 - Environment (local/dev/prod, browser/device, OS)
 - Steps to reproduce
-- Relevant URL/path (for example: `/map`)
+- Relevant URL/path (e.g., `/map`)
 
 ### 5) Scope and constraints
 - Files/areas that should or should not be changed
