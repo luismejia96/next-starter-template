@@ -14,6 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { getRequiredEnv, logSecurityEvent } from "@/lib/security";
 
 export const config = {
   matcher: ["/map", "/map/:path*"],
@@ -35,12 +36,18 @@ function timingSafeEqual(a: string, b: string): boolean {
 }
 
 export function middleware(request: NextRequest): NextResponse {
-  const envSecret = process.env.MAP_VIEW_SECRET;
+  const envSecret = getRequiredEnv("MAP_VIEW_SECRET");
 
   // If MAP_VIEW_SECRET is not configured let the request through to the page
   // which will render its own "secret not configured" error UI.  This avoids
   // a hard redirect loop during initial setup.
   if (!envSecret) {
+    logSecurityEvent({
+      event: "map_secret_missing",
+      level: "warn",
+      path: request.nextUrl.pathname,
+      message: "MAP_VIEW_SECRET is not configured.",
+    });
     return NextResponse.next();
   }
 
@@ -55,6 +62,17 @@ export function middleware(request: NextRequest): NextResponse {
   const provided = headerSecret ?? cookieSecret ?? null;
 
   if (!provided || !timingSafeEqual(provided, envSecret)) {
+    logSecurityEvent({
+      event: "map_access_denied",
+      level: "warn",
+      path: request.nextUrl.pathname,
+      message: "Invalid map access secret provided.",
+      metadata: {
+        method: request.method,
+        hasHeaderSecret: Boolean(headerSecret),
+        hasCookieSecret: Boolean(cookieSecret),
+      },
+    });
     const acceptHeader = request.headers.get("accept") ?? "";
     if (acceptHeader.includes("application/json")) {
       return new NextResponse(

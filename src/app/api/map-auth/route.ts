@@ -18,6 +18,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { getRequiredEnv, logSecurityEvent } from "@/lib/security";
 
 export const runtime = "edge";
 
@@ -39,13 +40,16 @@ function timingSafeEqual(a: string, b: string): boolean {
 }
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const envSecret = process.env.MAP_VIEW_SECRET;
+  const envSecret = getRequiredEnv("MAP_VIEW_SECRET");
 
   if (!envSecret) {
-    console.error(
-      "[map-auth] MAP_VIEW_SECRET is not set. " +
-        "Configure it in .env.local (development) or as a deployment secret."
-    );
+    logSecurityEvent({
+      event: "map_secret_missing",
+      level: "error",
+      path: request.nextUrl.pathname,
+      message:
+        "MAP_VIEW_SECRET is not set. Configure it in .env.local or as a deployment secret.",
+    });
     return NextResponse.json(
       {
         ok: false,
@@ -63,11 +67,28 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const provided = headerSecret ?? cookieSecret ?? null;
 
   if (!provided || !timingSafeEqual(provided, envSecret)) {
+    logSecurityEvent({
+      event: "map_auth_failed",
+      level: "warn",
+      path: request.nextUrl.pathname,
+      message: "Invalid secret provided to map auth endpoint.",
+      metadata: {
+        method: request.method,
+        hasHeaderSecret: Boolean(headerSecret),
+        hasCookieSecret: Boolean(cookieSecret),
+      },
+    });
     return NextResponse.json(
       { ok: false, error: "Unauthorized. Valid X-MAP-SECRET header or map_secret cookie required." },
-      { status: 401 }
+      {
+        status: 401,
+        headers: { "Cache-Control": "no-store, max-age=0" },
+      }
     );
   }
 
-  return NextResponse.json({ ok: true }, { status: 200 });
+  return NextResponse.json(
+    { ok: true },
+    { status: 200, headers: { "Cache-Control": "no-store, max-age=0" } }
+  );
 }
