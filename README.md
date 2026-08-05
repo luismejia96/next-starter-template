@@ -38,6 +38,12 @@ Then run the development server (using the package manager of your choice):
 npm run dev
 ```
 
+Copy the example environment file before using protected routes:
+
+```bash
+cp .env.example .env.local
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
@@ -135,6 +141,7 @@ npm run deploy
 - **No secret values are committed to the repository.** All code that needs the secret reads `process.env.MAP_VIEW_SECRET`.
 - `MAP_VIEW_SECRET` is a convenience gate for private testing. For stronger production security use **Cloudflare Access / Zero Trust** (zero-config SSO, IP rules) or **OAuth** (GitHub/Google). See [Cloudflare Access docs](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/) for setup.
 - Do **not** commit real sensitive geodata (PII, private survey data, licensed datasets) to this repository. Store production data in Cloudflare R2 / AWS S3 with signed URLs, or use a private vector tileset service.
+- This template includes a baseline CI workflow for linting, build validation, dependency auditing, secret detection, and CodeQL analysis. Enable branch protection, secret scanning, push protection, and private vulnerability reporting in GitHub to complete the repository baseline.
 
 ### Scaling notes
 
